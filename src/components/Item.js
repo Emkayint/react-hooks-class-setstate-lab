@@ -21,4 +21,6 @@ function Item({ name, category }) {
   );
 }
 
+class It
+
 export default Item;
