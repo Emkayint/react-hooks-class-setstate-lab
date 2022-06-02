@@ -29,17 +29,19 @@ class App extends React.Component {
     isDarkMode : false
   };
 
-  handleDarkModeClick() {
-    this.setState({isDarkMode : true})
-  }
-
+  handleDarkModeClick = () => {
+    this.setState((prevState) => ({
+      isDarkMode : !prevState.isDarkMode,
+    }));
+  };
+ 
   render(){
     return (
-      <div className={"App " + (isDarkMode ? "dark" : "light")}>
+      <div className={"App " + (this.state.isDarkMode ? "dark" : "light")}>
         <header>
           <h2>Shopster</h2>
           <button onClick={this.handleDarkModeClick}>
-            {isDarkMode ? "Dark" : "Light"} Mode
+            {this.state.isDarkMode ? "Dark" : "Light"} Mode
           </button>
         </header>
         <ShoppingList items={this.state.items} />

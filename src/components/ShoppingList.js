@@ -37,21 +37,35 @@ import Item from "./Item";
 
 class ShoppingList extends React.Component {
   state = {
-    selectedCategory : "All"
-  }
+    selectedCategory: "All",
+  };
 
-  handleCategoryChange(e){
-    this.setState({
-      selectedCategory : e.target.value
-    })
-  }
+  hello = () => {
+    console.log(this.state.selectedCategory);
+  };
 
-  itemsToDisplay = this.props.items.filter((item) => {
-    if(this.state.selectedCategory === "All") return true
-    return item.category === this.state.selectedCategory;
-  })
+  handleCategoryChange = (event) => {
+    this.setState(() => {
+      return {
+        selectedCategory: event.target.value,
+      };
+    });
+  };
+
   
-  render (){
+  myItems() {
+    return this.props.items
+      .filter(
+        (item) =>
+          this.state.selectedCategory === "All" ||
+          item.category === this.state.selectedCategory
+      )
+      .map((item) => (
+        <Item key={item.id} name={item.name} category={item.category} />
+      ));
+  }
+
+  render() {
     return (
       <div className="ShoppingList">
         <div className="Filter">
@@ -62,11 +76,7 @@ class ShoppingList extends React.Component {
             <option value="Dessert">Dessert</option>
           </select>
         </div>
-        <ul className="Items">
-          {this.itemsToDisplay.map((item) => (
-            <Item key={item.id} name={item.name} category={item.category} />
-          ))}
-        </ul>
+        <ul className="Items">{this.myItems()}</ul>
       </div>
     );
   }

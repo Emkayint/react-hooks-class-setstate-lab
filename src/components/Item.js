@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 // function Item({ name, category }) {
 //   const [isInCart, setIsInCart] = useState(false);
@@ -17,7 +17,7 @@ import React, { useState } from "react";
 //       >
 //         {isInCart ? "Remove From" : "Add to"} Cart
 //       </button>
-//     </li>
+//     </li> 
 //   );
 // }
 
@@ -28,9 +28,13 @@ class Item extends React.Component {
     isInCart : false
   }
 
-  handleAddToCartClick(){
-    this.setState({isInCart : true})
-  }
+  handleAddToCartClick = () => {
+    this.setState((prevState) => { 
+      return {
+        isInCart : !prevState.isInCart
+      };
+    })
+  };
 
   render () {
     return (
